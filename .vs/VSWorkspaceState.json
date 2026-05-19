@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\admin",
+    "\\assets",
+    "\\client",
     "\\config",
-    "\\docs"
+    "\\database",
+    "\\docs",
+    "\\docs\\screenshots",
+    "\\fundi",
+    "\\includes"
   ],
+  "SelectedNode": "\\.gitattributes",
   "PreviewInSolutionExplorer": false
 }
