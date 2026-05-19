@@ -9,6 +9,7 @@ config/db.php
 Thumbs.db
 .vscode/
 .idea/
+.vs/
 
 # Temporary files
 *.log
