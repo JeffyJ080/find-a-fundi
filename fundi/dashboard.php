@@ -11,3 +11,4 @@ requireRole("fundi");
 <a href="create-service.php">Create New Service</a>
 
 <a href="../logout.php">Logout</a>
+<a href="bookings.php">View Bookings</a>
