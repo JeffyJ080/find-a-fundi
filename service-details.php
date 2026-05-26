@@ -111,6 +111,79 @@
             Book This Service
         </a>
 
+        <hr>
+
+        <h3>Reviews</h3>
+
+        <?php
+        try {
+
+            $stmt = $conn->prepare("
+                SELECT
+                    reviews.rating,
+                    reviews.comment,
+                    reviews.created_at,
+                    users.full_name
+                FROM reviews
+                INNER JOIN users
+                    ON reviews.client_id = users.user_id
+                WHERE reviews.booking_id IN (
+                    SELECT booking_id
+                    FROM bookings
+                    WHERE service_id = ?
+                )
+                ORDER BY reviews.created_at DESC
+            ");
+
+            $stmt->bind_param("i", $service_id);
+            $stmt->execute();
+
+            $reviewResult = $stmt->get_result();
+
+            if ($reviewResult->num_rows > 0):
+
+                while ($review = $reviewResult->fetch_assoc()):
+        ?>
+
+                    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+
+                        <p>
+                            <strong>
+                                <?php echo htmlspecialchars($review["full_name"]); ?>
+                            </strong>
+                        </p>
+
+                        <p>
+                            Rating:
+                            <?php echo htmlspecialchars($review["rating"]); ?>/5
+                        </p>
+
+                        <p>
+                            <?php echo nl2br(htmlspecialchars($review["comment"])); ?>
+                        </p>
+
+                        <p>
+                            <small>
+                                <?php echo htmlspecialchars($review["created_at"]); ?>
+                            </small>
+                        </p>
+
+                    </div>
+
+            <?php
+                    endwhile;
+
+                else:
+                    echo "<p>No reviews yet.</p>";
+                endif;
+
+                $stmt->close();
+
+            } catch (mysqli_sql_exception $e) {
+                echo "<p>Could not load reviews.</p>";
+            }
+            ?>
+
     </div>
 
 <?php endif; ?>

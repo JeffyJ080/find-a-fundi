@@ -56,6 +56,11 @@
             <p><strong>Date:</strong> <?php echo htmlspecialchars($booking["booking_date"]); ?></p>
             <p><strong>Time:</strong> <?php echo htmlspecialchars($booking["booking_time"]); ?></p>
             <p><strong>Status:</strong> <?php echo htmlspecialchars($booking["status"]); ?></p>
+            <?php if ($booking["status"] === "completed"): ?>
+                <a href="review-service.php?booking_id=<?php echo $booking["booking_id"]; ?>">
+                    Leave Review
+                </a>
+            <?php endif; ?>
             <p><strong>Notes:</strong> <?php echo nl2br(htmlspecialchars($booking["notes"])); ?></p>
         </div>
     <?php endwhile; ?>
