@@ -7,5 +7,7 @@ requireRole("client");
 
 <h1>Client Dashboard</h1>
 <p>Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?>.</p>
+<a href="bookings.php">My Bookings</a>
 <a href="services.php">Browse Services</a>
+<br>
 <a href="../logout.php">Logout</a>
