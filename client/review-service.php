@@ -16,7 +16,6 @@
     $client_id = $_SESSION["user_id"];
 
     try {
-
     $stmt = $conn->prepare("
         SELECT
             bookings.booking_id,
