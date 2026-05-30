@@ -1,3 +1,11 @@
+:root {
+    --white: #FFFFFF;
+    --light-grey: #E5E5E5;
+    --gold: #FCA311;
+    --navy: #14213D;
+    --black: #000000;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,38 +13,54 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    color: #222;
-
+    color: var(--white);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(252, 163, 17, 0.18), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.08), transparent 25%),
+        linear-gradient(135deg, var(--black), var(--navy));
+    background-attachment: fixed;
 }
 
 header, footer {
-    background: #111827;
-    color: white;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--white);
     padding: 18px 10%;
+    backdrop-filter: blur(8px);
+
+    text-align: center;
 }
 
 header h1, footer p {
     margin: 0;
 }
 
+.nav-links {
+    margin-top: 12px;
+}
+
+.nav-links a {
+    display: inline-block;
+    margin: 0 10px;
+}
+
 main {
     flex: 1;
-
     width: 90%;
     max-width: 1000px;
     margin: 30px auto;
-    background: white;
+    background: rgba(255, 255, 255, 0.96);
+    color: #222;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 
+
 a {
-    color: #2563eb;
+    color: var(--gold);
     text-decoration: none;
     font-weight: bold;
 }
@@ -46,16 +70,17 @@ a:hover {
 }
 
 button {
-    background: #2563eb;
-    color: white;
+    background: var(--gold);
+    color: var(--black);
     border: none;
     padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
-    background: #1d4ed8;
+    background: #e8940d;
 }
 
 input, textarea, select {
@@ -72,11 +97,12 @@ textarea {
 }
 
 .card {
-    border: 1px solid #ddd;
+    border: 1px solid var(--light-grey);
     padding: 18px;
     margin-bottom: 18px;
-    border-radius: 12px;
-    background: #fafafa;
+    border-radius: 14px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
 .nav-links a {
