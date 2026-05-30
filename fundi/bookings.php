@@ -51,10 +51,12 @@
                 services.title,
                 users.full_name AS client_name,
                 users.email AS client_email,
-                users.phone AS client_phone
+                users.phone AS client_phone,
+                payments.payment_status
             FROM bookings
             INNER JOIN services ON bookings.service_id = services.service_id
             INNER JOIN users ON bookings.client_id = users.user_id
+            LEFT JOIN payments ON bookings.booking_id = payments.booking_id
             WHERE services.fundi_id = ?
         ";
 
@@ -113,6 +115,11 @@
             <p><strong>Time:</strong> <?php echo htmlspecialchars($booking["booking_time"]); ?></p>
             <p><strong>Notes:</strong> <?php echo nl2br(htmlspecialchars($booking["notes"])); ?></p>
             <p><strong>Status:</strong> <?php echo htmlspecialchars($booking["status"]); ?></p>
+            <?php if (!empty($booking["payment_status"])): ?>
+                <p><strong>Payment:</strong> <?php echo htmlspecialchars($booking["payment_status"]); ?></p>
+            <?php else: ?>
+                <p><strong>Payment:</strong> Not paid</p>
+            <?php endif; ?>
 
             <form method="POST">
                 <input type="hidden" name="booking_id" value="<?php echo $booking["booking_id"]; ?>">
