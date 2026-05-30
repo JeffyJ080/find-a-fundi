@@ -1,23 +1,25 @@
 <?php
-session_start();
-
-if (isset($_SESSION["user_id"])) {
-
-    switch ($_SESSION["role"]) {
-
-        case "admin":
-            header("Location: admin/dashboard.php");
-            exit();
-
-        case "fundi":
-            header("Location: fundi/dashboard.php");
-            exit();
-
-        case "client":
-            header("Location: client/dashboard.php");
-            exit();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
-}
+
+    if (isset($_SESSION["user_id"])) {
+
+        switch ($_SESSION["role"]) {
+
+            case "admin":
+                header("Location: admin/dashboard.php");
+                exit();
+
+            case "fundi":
+                header("Location: fundi/dashboard.php");
+                exit();
+
+            case "client":
+                header("Location: client/dashboard.php");
+                exit();
+        }
+    }
 ?>
 
 <?php require_once "includes/header.php"; ?>

@@ -105,7 +105,7 @@
 <?php if (isset($result) && $result->num_rows > 0): ?>
 
     <?php while ($booking = $result->fetch_assoc()): ?>
-        <div style="border:1px solid #ccc; padding:15px; margin-bottom:15px;">
+        <div class="card">
             <h2><?php echo htmlspecialchars($booking["title"]); ?></h2>
 
             <p><strong>Client:</strong> <?php echo htmlspecialchars($booking["client_name"]); ?></p>

@@ -1,4 +1,4 @@
-<hr>
+</main>
 
 <footer>
     <p>&copy; <?php echo date("Y"); ?> Find a Fundi</p>

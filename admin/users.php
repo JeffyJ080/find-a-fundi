@@ -24,7 +24,7 @@
 
 <?php if (isset($result) && $result->num_rows > 0): ?>
     <?php while ($user = $result->fetch_assoc()): ?>
-        <div style="border:1px solid #ccc; padding:15px; margin-bottom:15px;">
+        <div class="card">
             <h2><?php echo htmlspecialchars($user["full_name"]); ?></h2>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($user["email"]); ?></p>
             <p><strong>Phone:</strong> <?php echo htmlspecialchars($user["phone"]); ?></p>

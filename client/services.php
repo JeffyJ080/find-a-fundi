@@ -37,7 +37,7 @@
 
     <?php while ($service = $result->fetch_assoc()): ?>
 
-        <div style="border:1px solid #ccc; padding:15px; margin-bottom:15px;">
+        <div class="card">
 
             <h2>
                 <?php echo htmlspecialchars($service["title"]); ?>
