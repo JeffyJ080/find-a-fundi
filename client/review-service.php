@@ -1,5 +1,5 @@
 <?php
-
+    require_once "../includes/header.php";
     require_once "../includes/auth.php";
     requireRole("client");
 
@@ -116,3 +116,4 @@
 </form>
 <br>
 <a href="bookings.php">Back to Bookings</a>
+<?php require_once "../includes/footer.php"; ?>

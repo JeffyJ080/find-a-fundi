@@ -1,8 +1,7 @@
 <?php
-
-require_once "../includes/auth.php";
-requireRole("client");
-
+    require_once "../includes/header.php";
+    require_once "../includes/auth.php";
+    requireRole("client");
 ?>
 
 <h1>Client Dashboard</h1>
@@ -12,3 +11,4 @@ requireRole("client");
 <p><a href="bookings.php">My Bookings</a></p>
 
 <p><a href="../logout.php">Logout</a></p>
+<?php require_once "../includes/footer.php"; ?>

@@ -1,8 +1,7 @@
 <?php
-
-require_once "../includes/auth.php";
-requireRole("fundi");
-
+    require_once "../includes/header.php";
+    require_once "../includes/auth.php";
+    requireRole("fundi");
 ?>
 
 <h1>Fundi Dashboard</h1>
@@ -12,3 +11,4 @@ requireRole("fundi");
 <p><a href="bookings.php">View Bookings</a></p>
 
 <p><a href="../logout.php">Logout</a></p>
+<?php require_once "../includes/footer.php"; ?>

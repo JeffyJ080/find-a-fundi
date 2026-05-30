@@ -1,8 +1,7 @@
 <?php
-
-require_once "../includes/auth.php";
-requireRole("admin");
-
+    require_once "../includes/header.php";
+    require_once "../includes/auth.php";
+    requireRole("admin");
 ?>
 
 <h1>Admin Dashboard</h1>
@@ -13,3 +12,4 @@ requireRole("admin");
 <p><a href="bookings.php">Manage Bookings</a></p>
 
 <p><a href="../logout.php">Logout</a></p>
+<?php require_once "../includes/footer.php"; ?>

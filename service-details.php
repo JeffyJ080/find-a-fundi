@@ -1,5 +1,6 @@
 <?php
 
+    require_once "includes/header.php";
     require_once "config/db.php";
 
     $message = "";
@@ -189,3 +190,5 @@
 <?php endif; ?>
 
 <a href="client/services.php">Back to Services</a>
+
+<?php require_once "includes/footer.php"; ?>

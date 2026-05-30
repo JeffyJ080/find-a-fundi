@@ -1,5 +1,5 @@
 <?php
-
+    require_once "../includes/header.php";
     require_once "../config/db.php";
 
     $message = "";
@@ -27,7 +27,6 @@
     } catch(mysqli_sql_exception $e){
         $message = "Could not load services: " . $e->getMessage();
     }
-
 ?>
 
 <h1>Browse Services</h1>
@@ -82,3 +81,5 @@
     <p>No services available.</p>
 
 <?php endif; ?>
+
+<?php require_once "../includes/footer.php"; ?>

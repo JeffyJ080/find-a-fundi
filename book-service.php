@@ -1,5 +1,5 @@
 <?php
-
+    require_once "includes/header.php";
     require_once "includes/auth.php";
     requireRole("client");
 
@@ -110,3 +110,4 @@
 <?php endif; ?>
 <br>
 <a href="client/services.php">Back to Services</a>
+<?php require_once "includes/footer.php"; ?>

@@ -12,4 +12,11 @@
 <header>
     <h1>Find a Fundi</h1>
     <hr>
+    <nav>
+    <a href="../find-a-fundi/index.php">Home</a>
+
+    <?php if (isset($_SESSION["user_id"])): ?>
+        <a href="../find-a-fundi/logout.php">Logout</a>
+    <?php endif; ?>
+</nav>
 </header>

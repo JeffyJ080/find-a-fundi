@@ -1,5 +1,6 @@
 <?php
 require_once "config/db.php";
+require_once "includes/header.php";
 
 $message = "";
 
@@ -70,3 +71,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </form>
 
 <p>Already have an account? <a href="login.php">Login</a></p>
+<?php require_once "includes/footer.php"; ?>

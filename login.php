@@ -1,42 +1,41 @@
 <?php
+    require_once "includes/header.php";
+    session_start();
+    require_once "config/db.php";
 
-session_start();
-require_once "config/db.php";
+    $message = "";
 
-$message = "";
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $email = trim($_POST["email"]);
+        $password = $_POST["password"];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = trim($_POST["email"]);
-    $password = $_POST["password"];
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
+        $result = $stmt->get_result();
 
-    $result = $stmt->get_result();
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+            if (password_verify($password, $user["password_hash"])) {
+                $_SESSION["user_id"] = $user["user_id"];
+                $_SESSION["full_name"] = $user["full_name"];
+                $_SESSION["role"] = $user["role"];
 
-        if (password_verify($password, $user["password_hash"])) {
-            $_SESSION["user_id"] = $user["user_id"];
-            $_SESSION["full_name"] = $user["full_name"];
-            $_SESSION["role"] = $user["role"];
-
-            if ($user["role"] === "admin") {
-                header("Location: admin/dashboard.php");
-            } elseif ($user["role"] === "fundi") {
-                header("Location: fundi/dashboard.php");
-            } else {
-                header("Location: client/dashboard.php");
+                if ($user["role"] === "admin") {
+                    header("Location: admin/dashboard.php");
+                } elseif ($user["role"] === "fundi") {
+                    header("Location: fundi/dashboard.php");
+                } else {
+                    header("Location: client/dashboard.php");
+                }
+                exit();
             }
-            exit();
         }
+
+        $message = "Invalid email or password.";
     }
-
-    $message = "Invalid email or password.";
-}
-
 ?>
 
 <h1>Login</h1>
@@ -51,3 +50,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </form>
 
 <p>No account? <a href="register.php">Register</a></p>
+<?php require_once "includes/footer.php"; ?>
