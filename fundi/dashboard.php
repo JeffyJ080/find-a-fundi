@@ -8,6 +8,7 @@
 <p>Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?>.</p>
 
 <p><a href="create-service.php">Create Service</a></p>
+<p><a href="services.php">My Services</a></p>
 <p><a href="bookings.php">View Bookings</a></p>
 
 <p><a href="../logout.php">Logout</a></p>
