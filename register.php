@@ -1,52 +1,52 @@
 <?php
-require_once "config/db.php";
-require_once "includes/header.php";
+    require_once "config/db.php";
+    require_once "includes/header.php";
 
-$message = "";
+    $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $full_name = trim($_POST["full_name"]);
-    $email = trim($_POST["email"]);
-    $phone = trim($_POST["phone"]);
-    $location = trim($_POST["location"]);
-    $role = $_POST["role"];
-    $password = $_POST["password"];
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $full_name = trim($_POST["full_name"]);
+        $email = trim($_POST["email"]);
+        $phone = trim($_POST["phone"]);
+        $location = trim($_POST["location"]);
+        $role = $_POST["role"];
+        $password = $_POST["password"];
 
-    if (empty($full_name) || empty($email) || empty($password) || empty($role)) {
-        $message = "Please fill in all required fields.";
-    } else {
-        try {
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        if (empty($full_name) || empty($email) || empty($password) || empty($role)) {
+            $message = "Please fill in all required fields.";
+        } else {
+            try {
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("
-                INSERT INTO users (full_name, email, password_hash, phone, location, role)
-                VALUES (?, ?, ?, ?, ?, ?)
-            ");
+                $stmt = $conn->prepare("
+                    INSERT INTO users (full_name, email, password_hash, phone, location, role)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ");
 
-            $stmt->bind_param("ssssss", $full_name, $email, $password_hash, $phone, $location, $role);
-            $stmt->execute();
+                $stmt->bind_param("ssssss", $full_name, $email, $password_hash, $phone, $location, $role);
+                $stmt->execute();
 
-            $stmt->close();
-            $conn->close();
-
-            header("Location: login.php");
-            exit();
-
-        } catch (mysqli_sql_exception $e) {
-            if (isset($stmt)) {
                 $stmt->close();
-            }
+                $conn->close();
 
-            $conn->close();
+                header("Location: login.php");
+                exit();
 
-            if ($e->getCode() == 1062) {
-                $message = "An account with this email already exists.";
-            } else {
-                $message = "Registration failed. Please try again.";
+            } catch (mysqli_sql_exception $e) {
+                if (isset($stmt)) {
+                    $stmt->close();
+                }
+
+                $conn->close();
+
+                if ($e->getCode() == 1062) {
+                    $message = "An account with this email already exists.";
+                } else {
+                    $message = "Registration failed. Please try again.";
+                }
             }
         }
     }
-}
 ?>
 
 <h1>Register</h1>
