@@ -10,6 +10,7 @@ CREATE TABLE users (
     location VARCHAR(100),
     role ENUM('admin', 'fundi', 'client') NOT NULL,
     verified_status BOOLEAN DEFAULT FALSE,
+    account_status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

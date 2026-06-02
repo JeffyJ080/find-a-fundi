@@ -7,6 +7,29 @@
 
     $message = "";
 
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $service_id = (int) $_POST["service_id"];
+        $status = $_POST["status"];
+
+        if (in_array($status, ["active", "inactive"])) {
+            try {
+                $stmt = $conn->prepare("
+                    UPDATE services
+                    SET status = ?
+                    WHERE service_id = ?
+                ");
+
+                $stmt->bind_param("si", $status, $service_id);
+                $stmt->execute();
+                $stmt->close();
+
+                $message = "Service status updated.";
+            } catch (mysqli_sql_exception $e) {
+                $message = "Could not update service.";
+            }
+        }
+    }
+
     try {
         $result = $conn->query("
             SELECT 
@@ -47,6 +70,13 @@
             <p><strong>Availability:</strong> <?php echo htmlspecialchars($service["availability"]); ?></p>
             <p><strong>Status:</strong> <?php echo htmlspecialchars($service["status"]); ?></p>
             <p><?php echo nl2br(htmlspecialchars($service["description"])); ?></p>
+            <form method="POST">
+                <input type="hidden" name="service_id" value="<?php echo $service["service_id"]; ?>">
+                <input type="hidden" name="status" value="<?php echo $service["status"] === "active" ? "inactive" : "active"; ?>">
+                <button type="submit">
+                    <?php echo $service["status"] === "active" ? "Deactivate" : "Activate"; ?>
+                </button>
+            </form>
         </div>
     <?php endwhile; ?>
 <?php else: ?>

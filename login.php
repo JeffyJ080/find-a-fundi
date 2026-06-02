@@ -19,8 +19,10 @@
 
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
-
-            if (password_verify($password, $user["password_hash"])) {
+            
+            if ($user["account_status"] !== "active") {
+                $message = "This account has been deactivated.";
+            } elseif (password_verify($password, $user["password_hash"])) {
                 $_SESSION["user_id"] = $user["user_id"];
                 $_SESSION["full_name"] = $user["full_name"];
                 $_SESSION["role"] = $user["role"];
