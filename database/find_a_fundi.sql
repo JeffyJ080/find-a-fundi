@@ -1,10 +1,7 @@
-CREATE DATABASE IF NOT EXISTS find_a_fundi;
-USE find_a_fundi;
-
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     location VARCHAR(100),
@@ -30,7 +27,6 @@ CREATE TABLE services (
     availability VARCHAR(100),
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (fundi_id) REFERENCES users(user_id),
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
@@ -44,32 +40,41 @@ CREATE TABLE bookings (
     status ENUM('pending', 'accepted', 'completed', 'cancelled') DEFAULT 'pending',
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (service_id) REFERENCES services(service_id),
     FOREIGN KEY (client_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
+    booking_id INT NOT NULL UNIQUE,
     amount DECIMAL(10,2) NOT NULL,
     payment_method VARCHAR(50),
     payment_status ENUM('pending', 'paid', 'failed') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id)
 );
 
 CREATE TABLE reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
+    booking_id INT NOT NULL UNIQUE,
     client_id INT NOT NULL,
     fundi_id INT NOT NULL,
     rating INT NOT NULL,
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id),
     FOREIGN KEY (client_id) REFERENCES users(user_id),
     FOREIGN KEY (fundi_id) REFERENCES users(user_id)
 );
+
+INSERT INTO categories (category_name) VALUES
+('Tutoring'),
+('Plumbing'),
+('Electrical'),
+('Coaching'),
+('PC Repair'),
+('Haircuts'),
+('Photography'),
+('Cleaning'),
+('Gardening'),
+('Handyman Services');
