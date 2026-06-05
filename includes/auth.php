@@ -9,7 +9,7 @@
 
     function requireLogin() {
         if (!isset($_SESSION["user_id"])) {
-            header("Location: /find-a-fundi/login.php");
+            header("Location: /login.php");
             exit();
         }
     }
@@ -18,7 +18,7 @@
         requireLogin();
 
         if ($_SESSION["role"] !== $role) {
-            header("Location: /find-a-fundi/login.php");
+            header("Location: /login.php");
             exit();
         }
     }
